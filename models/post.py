@@ -1,16 +1,16 @@
+import sqlite3
 class Post:
-    def __init__(self, conn, user_id, content, image_url=None):
+    def __init__(self, conn, user_id, content):
         self.conn = conn
         self.user_id = user_id
         self.content = content
-        self.image_url = image_url  # Optional image_url parameter
 
     def create_post(self):
         try:
             cursor = self.conn.cursor()
             cursor.execute('''
-                INSERT INTO posts (user_id, content, image_url) VALUES (?, ?, ?)
-            ''', (self.user_id, self.content, self.image_url))
+                INSERT INTO posts (user_id, content) VALUES (?, ?)
+            ''', (self.user_id, self.content))
             self.conn.commit()
             print("Post created successfully.")
 

@@ -4,7 +4,7 @@ DATABASE_NAME = './social_media.db'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_NAME)
-    conn.row_factory = sqlite3.Row
+    conn.row_factory = sqlite3.Row  # To return rows as dictionaries
     return conn
 
 def create_tables(conn):
@@ -16,16 +16,13 @@ def create_tables(conn):
                     password TEXT NOT NULL
                 )''')
 
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS posts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            content TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            image_url TEXT,  -- Add new column for image URL
-            FOREIGN KEY (user_id) REFERENCES users (user_id)
-        )
-    ''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS posts (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    content TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users (id)
+                )''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS comments (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,3 +46,8 @@ def create_tables(conn):
 
 def close_connection(conn):
     conn.close()
+
+if __name__ == "__main__":
+    conn = get_db_connection()
+    create_tables(conn)
+    close_connection(conn)
