@@ -1,3 +1,6 @@
+https://github.com/jemelinazlin/friendzyySocialMediaApp/assets/162307521/52c1d1ad-7211-47f3-a811-a052dad08a89
+
+
 FRIENDZYY SOCIAL MEDIA APP by Nazlin Jemeli
 
 PROJECT DESCRIPTION
